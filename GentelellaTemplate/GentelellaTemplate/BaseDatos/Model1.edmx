@@ -1,0 +1,1200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WorknetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="CONSECUTIVO" />
+          </Key>
+          <Property Name="FECHA_HORA" Type="datetime" Nullable="false" />
+          <Property Name="DESCRIPCION_ERROR" Type="varchar" MaxLength="2500" Nullable="false" />
+          <Property Name="CODIGO_ERROR" Type="bigint" Nullable="false" />
+          <Property Name="ORIGEN" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CONSECUTIVO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CANDIDATOS">
+          <Key>
+            <PropertyRef Name="CORREO_USUARIO" />
+          </Key>
+          <Property Name="NOMBRE_CANDIDATO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="APELLIDO_CANDIDATO" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="EXP_CANDIDATO" Type="int" Nullable="false" />
+          <Property Name="GRADO_ESTUDIO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONO_CANDIDATO" Type="int" Nullable="false" />
+          <Property Name="AREA_INTERES" Type="bigint" Nullable="false" />
+          <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATEGORIAS">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORIA_DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLEOS">
+          <Key>
+            <PropertyRef Name="ID_EMPLEO" />
+          </Key>
+          <Property Name="ID_EMPLEO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CATEGORIA" Type="bigint" Nullable="false" />
+          <Property Name="EXP_MINIMA" Type="int" Nullable="false" />
+          <Property Name="GRADO_ESTUDIO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="COMPANIA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMPLEO_NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ESTADO_PUESTO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="REQUISITOS" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="CORREO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECLUTADORES">
+          <Key>
+            <PropertyRef Name="CORREO_RECLUTADOR" />
+          </Key>
+          <Property Name="CORREO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOMBRE_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APELLIDO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="COMPANIA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TELEFONO_RECLUTADOR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOLICITUDES">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD" />
+          </Key>
+          <Property Name="ID_SOLICITUD" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPLEO" Type="bigint" Nullable="false" />
+          <Property Name="CORREO_CANDIDATO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FECHA_SOLICITUD" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="CORREO_USUARIO" />
+          </Key>
+          <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ROL" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BITACORA_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CANDIDATOS_CATEGORIAS">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="CANDIDATOS">
+              <PropertyRef Name="AREA_INTERES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLEOS_CATEGORIAS">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="EMPLEOS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLEOS_RECLUTADORES">
+          <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="1" />
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECLUTADORES">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Principal>
+            <Dependent Role="EMPLEOS">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECLUTADORES_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="RECLUTADORES">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOLICITUDES_CANDIDATOS">
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="1" />
+          <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CANDIDATOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="SOLICITUDES">
+              <PropertyRef Name="CORREO_CANDIDATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_6">
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="1" />
+          <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLEOS">
+              <PropertyRef Name="ID_EMPLEO" />
+            </Principal>
+            <Dependent Role="SOLICITUDES">
+              <PropertyRef Name="ID_EMPLEO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_8">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="CANDIDATOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_Actualizar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pNombre" Type="varchar" Mode="In" />
+          <Parameter Name="pApellido" Type="varchar" Mode="In" />
+          <Parameter Name="pExp" Type="int" Mode="In" />
+          <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+          <Parameter Name="pTelefono" Type="int" Mode="In" />
+          <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Actualizar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmpleo" Type="varchar" Mode="In" />
+          <Parameter Name="pCompania" Type="varchar" Mode="In" />
+          <Parameter Name="pRequisitos" Type="varchar" Mode="In" />
+          <Parameter Name="pDescripcion" Type="varchar" Mode="In" />
+          <Parameter Name="pExperiencia" Type="int" Mode="In" />
+          <Parameter Name="pEstudios" Type="varchar" Mode="In" />
+          <Parameter Name="pEstado" Type="varchar" Mode="In" />
+          <Parameter Name="pCategoria" Type="int" Mode="In" />
+          <Parameter Name="pIdPuesto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Actualizar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pNombre" Type="varchar" Mode="In" />
+          <Parameter Name="pApellido" Type="varchar" Mode="In" />
+          <Parameter Name="pCompania" Type="varchar" Mode="In" />
+          <Parameter Name="pTelefono" Type="int" Mode="In" />
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Buscar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pContrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Consultar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pIdEmpleo" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Empleo_Aplicado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pIdEmpleo" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Consultar_Solicitudes_por_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_Empleo_Inteligente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+          <Parameter Name="pExp" Type="int" Mode="In" />
+          <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Empleos_Publicados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Filtrar_Categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCategoria" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Bitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pDescripcion" Type="varchar" Mode="In" />
+          <Parameter Name="pOrigen" Type="varchar" Mode="In" />
+          <Parameter Name="pCorreo_Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pNombre" Type="varchar" Mode="In" />
+          <Parameter Name="pApellido" Type="varchar" Mode="In" />
+          <Parameter Name="pExp" Type="int" Mode="In" />
+          <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+          <Parameter Name="pTelefono" Type="int" Mode="In" />
+          <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pNombreEmpleo" Type="varchar" Mode="In" />
+          <Parameter Name="pRequisitos" Type="varchar" Mode="In" />
+          <Parameter Name="pDescripcionGeneral" Type="varchar" Mode="In" />
+          <Parameter Name="pCompania" Type="varchar" Mode="In" />
+          <Parameter Name="pIdCategoria" Type="int" Mode="In" />
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pEstado" Type="varchar" Mode="In" />
+          <Parameter Name="pExperienciaMinima" Type="int" Mode="In" />
+          <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pNombre" Type="varchar" Mode="In" />
+          <Parameter Name="pApellido" Type="varchar" Mode="In" />
+          <Parameter Name="pCompania" Type="varchar" Mode="In" />
+          <Parameter Name="pTelefono" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreoCandidato" Type="varchar" Mode="In" />
+          <Parameter Name="pIdEmpleo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Insertar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="pPassword" Type="varchar" Mode="In" />
+          <Parameter Name="pIdRol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Llenar_Candidatos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Llenar_Empleos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Ver_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="WorknetModelStoreContainer">
+          <EntitySet Name="BITACORA" EntityType="Self.BITACORA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CANDIDATOS" EntityType="Self.CANDIDATOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIAS" EntityType="Self.CATEGORIAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLEOS" EntityType="Self.EMPLEOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECLUTADORES" EntityType="Self.RECLUTADORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOLICITUDES" EntityType="Self.SOLICITUDES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BITACORA_USUARIOS" Association="Self.FK_BITACORA_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="BITACORA" EntitySet="BITACORA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CANDIDATOS_CATEGORIAS" Association="Self.FK_CANDIDATOS_CATEGORIAS">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLEOS_CATEGORIAS" Association="Self.FK_EMPLEOS_CATEGORIAS">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLEOS_RECLUTADORES" Association="Self.FK_EMPLEOS_RECLUTADORES">
+            <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECLUTADORES_USUARIOS" Association="Self.FK_RECLUTADORES_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOLICITUDES_CANDIDATOS" Association="Self.FK_SOLICITUDES_CANDIDATOS">
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+            <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="R_6" Association="Self.R_6">
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+            <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+          </AssociationSet>
+          <AssociationSet Name="R_8" Association="Self.R_8">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WorknetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="CONSECUTIVO" />
+          </Key>
+          <Property Name="FECHA_HORA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DESCRIPCION_ERROR" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CODIGO_ERROR" Type="Int64" Nullable="false" />
+          <Property Name="ORIGEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONSECUTIVO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CORREO_USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK_BITACORA_USUARIOS" FromRole="BITACORA" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="CANDIDATOS">
+          <Key>
+            <PropertyRef Name="CORREO_USUARIO" />
+          </Key>
+          <Property Name="NOMBRE_CANDIDATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO_CANDIDATO" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXP_CANDIDATO" Type="Int32" Nullable="false" />
+          <Property Name="GRADO_ESTUDIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO_CANDIDATO" Type="Int32" Nullable="false" />
+          <Property Name="AREA_INTERES" Type="Int64" Nullable="false" />
+          <Property Name="CORREO_USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CATEGORIAS" Relationship="Self.FK_CANDIDATOS_CATEGORIAS" FromRole="CANDIDATOS" ToRole="CATEGORIAS" />
+          <NavigationProperty Name="SOLICITUDES" Relationship="Self.FK_SOLICITUDES_CANDIDATOS" FromRole="CANDIDATOS" ToRole="SOLICITUDES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.R_8" FromRole="CANDIDATOS" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="CATEGORIAS">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORIA_DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CANDIDATOS" Relationship="Self.FK_CANDIDATOS_CATEGORIAS" FromRole="CATEGORIAS" ToRole="CANDIDATOS" />
+          <NavigationProperty Name="EMPLEOS" Relationship="Self.FK_EMPLEOS_CATEGORIAS" FromRole="CATEGORIAS" ToRole="EMPLEOS" />
+        </EntityType>
+        <EntityType Name="EMPLEOS">
+          <Key>
+            <PropertyRef Name="ID_EMPLEO" />
+          </Key>
+          <Property Name="ID_EMPLEO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CATEGORIA" Type="Int64" Nullable="false" />
+          <Property Name="EXP_MINIMA" Type="Int32" Nullable="false" />
+          <Property Name="GRADO_ESTUDIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COMPANIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMPLEO_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ESTADO_PUESTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REQUISITOS" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO_RECLUTADOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CATEGORIAS" Relationship="Self.FK_EMPLEOS_CATEGORIAS" FromRole="EMPLEOS" ToRole="CATEGORIAS" />
+          <NavigationProperty Name="RECLUTADORES" Relationship="Self.FK_EMPLEOS_RECLUTADORES" FromRole="EMPLEOS" ToRole="RECLUTADORES" />
+          <NavigationProperty Name="SOLICITUDES" Relationship="Self.R_6" FromRole="EMPLEOS" ToRole="SOLICITUDES" />
+        </EntityType>
+        <EntityType Name="RECLUTADORES">
+          <Key>
+            <PropertyRef Name="CORREO_RECLUTADOR" />
+          </Key>
+          <Property Name="CORREO_RECLUTADOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE_RECLUTADOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO_RECLUTADOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COMPANIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO_RECLUTADOR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EMPLEOS" Relationship="Self.FK_EMPLEOS_RECLUTADORES" FromRole="RECLUTADORES" ToRole="EMPLEOS" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK_RECLUTADORES_USUARIOS" FromRole="RECLUTADORES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_ROL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.R_4" FromRole="ROLES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="SOLICITUDES">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD" />
+          </Key>
+          <Property Name="ID_SOLICITUD" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPLEO" Type="Int64" Nullable="false" />
+          <Property Name="CORREO_CANDIDATO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA_SOLICITUD" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CANDIDATOS" Relationship="Self.FK_SOLICITUDES_CANDIDATOS" FromRole="SOLICITUDES" ToRole="CANDIDATOS" />
+          <NavigationProperty Name="EMPLEOS" Relationship="Self.R_6" FromRole="SOLICITUDES" ToRole="EMPLEOS" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="CORREO_USUARIO" />
+          </Key>
+          <Property Name="CORREO_USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_ROL" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="BITACORA" Relationship="Self.FK_BITACORA_USUARIOS" FromRole="USUARIOS" ToRole="BITACORA" />
+          <NavigationProperty Name="CANDIDATOS" Relationship="Self.R_8" FromRole="USUARIOS" ToRole="CANDIDATOS" />
+          <NavigationProperty Name="RECLUTADORES" Relationship="Self.FK_RECLUTADORES_USUARIOS" FromRole="USUARIOS" ToRole="RECLUTADORES" />
+          <NavigationProperty Name="ROLES" Relationship="Self.R_4" FromRole="USUARIOS" ToRole="ROLES" />
+        </EntityType>
+        <Association Name="FK_BITACORA_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CANDIDATOS_CATEGORIAS">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="CANDIDATOS">
+              <PropertyRef Name="AREA_INTERES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOLICITUDES_CANDIDATOS">
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="1" />
+          <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CANDIDATOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="SOLICITUDES">
+              <PropertyRef Name="CORREO_CANDIDATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_8">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="CANDIDATOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLEOS_CATEGORIAS">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="EMPLEOS">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLEOS_RECLUTADORES">
+          <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="1" />
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECLUTADORES">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Principal>
+            <Dependent Role="EMPLEOS">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_6">
+          <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="1" />
+          <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLEOS">
+              <PropertyRef Name="ID_EMPLEO" />
+            </Principal>
+            <Dependent Role="SOLICITUDES">
+              <PropertyRef Name="ID_EMPLEO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECLUTADORES_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="CORREO_USUARIO" />
+            </Principal>
+            <Dependent Role="RECLUTADORES">
+              <PropertyRef Name="CORREO_RECLUTADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WorknetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BITACORA" EntityType="Self.BITACORA" />
+          <EntitySet Name="CANDIDATOS" EntityType="Self.CANDIDATOS" />
+          <EntitySet Name="CATEGORIAS" EntityType="Self.CATEGORIAS" />
+          <EntitySet Name="EMPLEOS" EntityType="Self.EMPLEOS" />
+          <EntitySet Name="RECLUTADORES" EntityType="Self.RECLUTADORES" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+          <EntitySet Name="SOLICITUDES" EntityType="Self.SOLICITUDES" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" />
+          <AssociationSet Name="FK_BITACORA_USUARIOS" Association="Self.FK_BITACORA_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="BITACORA" EntitySet="BITACORA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CANDIDATOS_CATEGORIAS" Association="Self.FK_CANDIDATOS_CATEGORIAS">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOLICITUDES_CANDIDATOS" Association="Self.FK_SOLICITUDES_CANDIDATOS">
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+            <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+          </AssociationSet>
+          <AssociationSet Name="R_8" Association="Self.R_8">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLEOS_CATEGORIAS" Association="Self.FK_EMPLEOS_CATEGORIAS">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLEOS_RECLUTADORES" Association="Self.FK_EMPLEOS_RECLUTADORES">
+            <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+          </AssociationSet>
+          <AssociationSet Name="R_6" Association="Self.R_6">
+            <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+            <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECLUTADORES_USUARIOS" Association="Self.FK_RECLUTADORES_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <FunctionImport Name="SP_Actualizar_Candidato">
+            <Parameter Name="pNombre" Mode="In" Type="String" />
+            <Parameter Name="pApellido" Mode="In" Type="String" />
+            <Parameter Name="pExp" Mode="In" Type="Int32" />
+            <Parameter Name="pGradoEstudio" Mode="In" Type="String" />
+            <Parameter Name="pTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="pAreaInteres" Mode="In" Type="Int32" />
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Actualizar_Empleo">
+            <Parameter Name="pEmpleo" Mode="In" Type="String" />
+            <Parameter Name="pCompania" Mode="In" Type="String" />
+            <Parameter Name="pRequisitos" Mode="In" Type="String" />
+            <Parameter Name="pDescripcion" Mode="In" Type="String" />
+            <Parameter Name="pExperiencia" Mode="In" Type="Int32" />
+            <Parameter Name="pEstudios" Mode="In" Type="String" />
+            <Parameter Name="pEstado" Mode="In" Type="String" />
+            <Parameter Name="pCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="pIdPuesto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Actualizar_Reclutador">
+            <Parameter Name="pNombre" Mode="In" Type="String" />
+            <Parameter Name="pApellido" Mode="In" Type="String" />
+            <Parameter Name="pCompania" Mode="In" Type="String" />
+            <Parameter Name="pTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Buscar_Usuario" ReturnType="Collection(WorknetModel.SP_Buscar_Usuario_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pContrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Candidato" ReturnType="Collection(WorknetModel.SP_Consultar_Candidato_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Categorias" ReturnType="Collection(WorknetModel.SP_Consultar_Categorias_Result)" />
+          <FunctionImport Name="SP_Consultar_Empleo" ReturnType="Collection(WorknetModel.SP_Consultar_Empleo_Result)">
+            <Parameter Name="pIdEmpleo" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Empleo_Aplicado" ReturnType="Collection(WorknetModel.SP_Consultar_Empleo_Aplicado_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pIdEmpleo" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Reclutador" ReturnType="Collection(WorknetModel.SP_Consultar_Reclutador_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Solicitudes" ReturnType="Collection(WorknetModel.SP_Consultar_Solicitudes_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Solicitudes_por_id" ReturnType="Collection(WorknetModel.SP_Consultar_Solicitudes_por_id_Result)">
+            <Parameter Name="pid" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Empleo_Inteligente" ReturnType="Collection(WorknetModel.SP_Empleo_Inteligente_Result)">
+            <Parameter Name="pAreaInteres" Mode="In" Type="Int32" />
+            <Parameter Name="pExp" Mode="In" Type="Int32" />
+            <Parameter Name="pGradoEstudio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Empleos_Publicados" ReturnType="Collection(WorknetModel.SP_Empleos_Publicados_Result)">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Filtrar_Categorias" ReturnType="Collection(WorknetModel.SP_Filtrar_Categorias_Result)">
+            <Parameter Name="pCategoria" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Bitacora">
+            <Parameter Name="pDescripcion" Mode="In" Type="String" />
+            <Parameter Name="pOrigen" Mode="In" Type="String" />
+            <Parameter Name="pCorreo_Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Candidato">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pNombre" Mode="In" Type="String" />
+            <Parameter Name="pApellido" Mode="In" Type="String" />
+            <Parameter Name="pExp" Mode="In" Type="Int32" />
+            <Parameter Name="pGradoEstudio" Mode="In" Type="String" />
+            <Parameter Name="pTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="pAreaInteres" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Empleo">
+            <Parameter Name="pNombreEmpleo" Mode="In" Type="String" />
+            <Parameter Name="pRequisitos" Mode="In" Type="String" />
+            <Parameter Name="pDescripcionGeneral" Mode="In" Type="String" />
+            <Parameter Name="pCompania" Mode="In" Type="String" />
+            <Parameter Name="pIdCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pEstado" Mode="In" Type="String" />
+            <Parameter Name="pExperienciaMinima" Mode="In" Type="Int32" />
+            <Parameter Name="pGradoEstudio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Reclutador">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pNombre" Mode="In" Type="String" />
+            <Parameter Name="pApellido" Mode="In" Type="String" />
+            <Parameter Name="pCompania" Mode="In" Type="String" />
+            <Parameter Name="pTelefono" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Solicitudes">
+            <Parameter Name="pCorreoCandidato" Mode="In" Type="String" />
+            <Parameter Name="pIdEmpleo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Insertar_Usuario">
+            <Parameter Name="pCorreo" Mode="In" Type="String" />
+            <Parameter Name="pPassword" Mode="In" Type="String" />
+            <Parameter Name="pIdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Llenar_Candidatos" ReturnType="Collection(WorknetModel.SP_Llenar_Candidatos_Result)" />
+          <FunctionImport Name="SP_Llenar_Empleos" ReturnType="Collection(WorknetModel.SP_Llenar_Empleos_Result)" />
+          <FunctionImport Name="SP_Ver_Solicitudes" ReturnType="Collection(WorknetModel.SP_Ver_Solicitudes_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_Buscar_Usuario_Result">
+          <Property Type="String" Name="CORREO_USUARIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CONTRASENA" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="ID_ROL" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Candidato_Result">
+          <Property Type="String" Name="NOMBRE_CANDIDATO" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="APELLIDO_CANDIDATO" Nullable="false" MaxLength="90" />
+          <Property Type="Int32" Name="EXP_CANDIDATO" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="TELEFONO_CANDIDATO" Nullable="false" />
+          <Property Type="Int64" Name="AREA_INTERES" Nullable="false" />
+          <Property Type="String" Name="CORREO_USUARIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Categorias_Result">
+          <Property Type="Int64" Name="id_Categoria" Nullable="false" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Empleo_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="false" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Empleo_Aplicado_Result">
+          <Property Type="Int64" Name="ID_SOLICITUD" Nullable="false" />
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="String" Name="CORREO_CANDIDATO" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="FECHA_SOLICITUD" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Reclutador_Result">
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="APELLIDO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TELEFONO_RECLUTADOR" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Solicitudes_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="true" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="true" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="true" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="ID_SOLICITUD" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_SOLICITUD" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CORREO_CANDIDATO" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Consultar_Solicitudes_por_id_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="true" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="true" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="true" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="ID_SOLICITUD" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_SOLICITUD" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CORREO_CANDIDATO" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Empleo_Inteligente_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="false" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CATEGORIA_DESCRIPCION" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Empleos_Publicados_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="false" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Filtrar_Categorias_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="false" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Llenar_Candidatos_Result">
+          <Property Type="String" Name="NOMBRE_CANDIDATO" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="APELLIDO_CANDIDATO" Nullable="false" MaxLength="90" />
+          <Property Type="Int32" Name="EXP_CANDIDATO" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="TELEFONO_CANDIDATO" Nullable="false" />
+          <Property Type="Int64" Name="AREA_INTERES" Nullable="false" />
+          <Property Type="String" Name="CORREO_USUARIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Llenar_Empleos_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="false" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="false" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="false" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_Ver_Solicitudes_Result">
+          <Property Type="Int64" Name="ID_EMPLEO" Nullable="true" />
+          <Property Type="Int64" Name="ID_CATEGORIA" Nullable="true" />
+          <Property Type="Int32" Name="EXP_MINIMA" Nullable="true" />
+          <Property Type="String" Name="GRADO_ESTUDIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COMPANIA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMPLEO_NOMBRE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ESTADO_PUESTO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="REQUISITOS" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="CORREO_RECLUTADOR" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="categoria_descripcion" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="ID_SOLICITUD" Nullable="false" />
+          <Property Type="DateTime" Name="FECHA_SOLICITUD" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CORREO_CANDIDATO" Nullable="false" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WorknetModelStoreContainer" CdmEntityContainer="WorknetEntities">
+          <EntitySetMapping Name="BITACORA">
+            <EntityTypeMapping TypeName="WorknetModel.BITACORA">
+              <MappingFragment StoreEntitySet="BITACORA">
+                <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+                <ScalarProperty Name="DESCRIPCION_ERROR" ColumnName="DESCRIPCION_ERROR" />
+                <ScalarProperty Name="CODIGO_ERROR" ColumnName="CODIGO_ERROR" />
+                <ScalarProperty Name="ORIGEN" ColumnName="ORIGEN" />
+                <ScalarProperty Name="CONSECUTIVO" ColumnName="CONSECUTIVO" />
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CANDIDATOS">
+            <EntityTypeMapping TypeName="WorknetModel.CANDIDATOS">
+              <MappingFragment StoreEntitySet="CANDIDATOS">
+                <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+                <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+                <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+                <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIAS">
+            <EntityTypeMapping TypeName="WorknetModel.CATEGORIAS">
+              <MappingFragment StoreEntitySet="CATEGORIAS">
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="CATEGORIA_DESCRIPCION" ColumnName="CATEGORIA_DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLEOS">
+            <EntityTypeMapping TypeName="WorknetModel.EMPLEOS">
+              <MappingFragment StoreEntitySet="EMPLEOS">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECLUTADORES">
+            <EntityTypeMapping TypeName="WorknetModel.RECLUTADORES">
+              <MappingFragment StoreEntitySet="RECLUTADORES">
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="NOMBRE_RECLUTADOR" ColumnName="NOMBRE_RECLUTADOR" />
+                <ScalarProperty Name="APELLIDO_RECLUTADOR" ColumnName="APELLIDO_RECLUTADOR" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="TELEFONO_RECLUTADOR" ColumnName="TELEFONO_RECLUTADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="WorknetModel.ROLES">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOLICITUDES">
+            <EntityTypeMapping TypeName="WorknetModel.SOLICITUDES">
+              <MappingFragment StoreEntitySet="SOLICITUDES">
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="WorknetModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Actualizar_Candidato" FunctionName="WorknetModel.Store.SP_Actualizar_Candidato" />
+          <FunctionImportMapping FunctionImportName="SP_Actualizar_Empleo" FunctionName="WorknetModel.Store.SP_Actualizar_Empleo" />
+          <FunctionImportMapping FunctionImportName="SP_Actualizar_Reclutador" FunctionName="WorknetModel.Store.SP_Actualizar_Reclutador" />
+          <FunctionImportMapping FunctionImportName="SP_Buscar_Usuario" FunctionName="WorknetModel.Store.SP_Buscar_Usuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Buscar_Usuario_Result">
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Candidato" FunctionName="WorknetModel.Store.SP_Consultar_Candidato">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Candidato_Result">
+                <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+                <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+                <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+                <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Categorias" FunctionName="WorknetModel.Store.SP_Consultar_Categorias">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Categorias_Result">
+                <ScalarProperty Name="id_Categoria" ColumnName="id_Categoria" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Empleo" FunctionName="WorknetModel.Store.SP_Consultar_Empleo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Empleo_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Empleo_Aplicado" FunctionName="WorknetModel.Store.SP_Consultar_Empleo_Aplicado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Empleo_Aplicado_Result">
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Reclutador" FunctionName="WorknetModel.Store.SP_Consultar_Reclutador">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Reclutador_Result">
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="NOMBRE_RECLUTADOR" ColumnName="NOMBRE_RECLUTADOR" />
+                <ScalarProperty Name="APELLIDO_RECLUTADOR" ColumnName="APELLIDO_RECLUTADOR" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="TELEFONO_RECLUTADOR" ColumnName="TELEFONO_RECLUTADOR" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Solicitudes" FunctionName="WorknetModel.Store.SP_Consultar_Solicitudes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Solicitudes_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+                <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Solicitudes_por_id" FunctionName="WorknetModel.Store.SP_Consultar_Solicitudes_por_id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Solicitudes_por_id_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+                <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Empleo_Inteligente" FunctionName="WorknetModel.Store.SP_Empleo_Inteligente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Empleo_Inteligente_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="CATEGORIA_DESCRIPCION" ColumnName="CATEGORIA_DESCRIPCION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Empleos_Publicados" FunctionName="WorknetModel.Store.SP_Empleos_Publicados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Empleos_Publicados_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Filtrar_Categorias" FunctionName="WorknetModel.Store.SP_Filtrar_Categorias">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Filtrar_Categorias_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Bitacora" FunctionName="WorknetModel.Store.SP_Insertar_Bitacora" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Candidato" FunctionName="WorknetModel.Store.SP_Insertar_Candidato" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Empleo" FunctionName="WorknetModel.Store.SP_Insertar_Empleo" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Reclutador" FunctionName="WorknetModel.Store.SP_Insertar_Reclutador" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Solicitudes" FunctionName="WorknetModel.Store.SP_Insertar_Solicitudes" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Usuario" FunctionName="WorknetModel.Store.SP_Insertar_Usuario" />
+          <FunctionImportMapping FunctionImportName="SP_Llenar_Candidatos" FunctionName="WorknetModel.Store.SP_Llenar_Candidatos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Llenar_Candidatos_Result">
+                <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+                <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+                <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+                <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+                <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Llenar_Empleos" FunctionName="WorknetModel.Store.SP_Llenar_Empleos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Llenar_Empleos_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Ver_Solicitudes" FunctionName="WorknetModel.Store.SP_Ver_Solicitudes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WorknetModel.SP_Ver_Solicitudes_Result">
+                <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+                <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+                <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+                <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+                <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+                <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+                <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+                <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
