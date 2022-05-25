@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WorknetModelStoreContainer" CdmEntityContainer="WorknetEntities">
+    <EntitySetMapping Name="BITACORA">
+      <EntityTypeMapping TypeName="WorknetModel.BITACORA">
+        <MappingFragment StoreEntitySet="BITACORA">
+          <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+          <ScalarProperty Name="DESCRIPCION_ERROR" ColumnName="DESCRIPCION_ERROR" />
+          <ScalarProperty Name="CODIGO_ERROR" ColumnName="CODIGO_ERROR" />
+          <ScalarProperty Name="ORIGEN" ColumnName="ORIGEN" />
+          <ScalarProperty Name="CONSECUTIVO" ColumnName="CONSECUTIVO" />
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CANDIDATOS">
+      <EntityTypeMapping TypeName="WorknetModel.CANDIDATOS">
+        <MappingFragment StoreEntitySet="CANDIDATOS">
+          <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+          <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+          <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+          <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CATEGORIAS">
+      <EntityTypeMapping TypeName="WorknetModel.CATEGORIAS">
+        <MappingFragment StoreEntitySet="CATEGORIAS">
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="CATEGORIA_DESCRIPCION" ColumnName="CATEGORIA_DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPLEOS">
+      <EntityTypeMapping TypeName="WorknetModel.EMPLEOS">
+        <MappingFragment StoreEntitySet="EMPLEOS">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RECLUTADORES">
+      <EntityTypeMapping TypeName="WorknetModel.RECLUTADORES">
+        <MappingFragment StoreEntitySet="RECLUTADORES">
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="NOMBRE_RECLUTADOR" ColumnName="NOMBRE_RECLUTADOR" />
+          <ScalarProperty Name="APELLIDO_RECLUTADOR" ColumnName="APELLIDO_RECLUTADOR" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="TELEFONO_RECLUTADOR" ColumnName="TELEFONO_RECLUTADOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLES">
+      <EntityTypeMapping TypeName="WorknetModel.ROLES">
+        <MappingFragment StoreEntitySet="ROLES">
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+          <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SOLICITUDES">
+      <EntityTypeMapping TypeName="WorknetModel.SOLICITUDES">
+        <MappingFragment StoreEntitySet="SOLICITUDES">
+          <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIOS">
+      <EntityTypeMapping TypeName="WorknetModel.USUARIOS">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+          <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Actualizar_Candidato" FunctionName="WorknetModel.Store.SP_Actualizar_Candidato" />
+    <FunctionImportMapping FunctionImportName="SP_Actualizar_Empleo" FunctionName="WorknetModel.Store.SP_Actualizar_Empleo" />
+    <FunctionImportMapping FunctionImportName="SP_Actualizar_Reclutador" FunctionName="WorknetModel.Store.SP_Actualizar_Reclutador" />
+    <FunctionImportMapping FunctionImportName="SP_Buscar_Usuario" FunctionName="WorknetModel.Store.SP_Buscar_Usuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Buscar_Usuario_Result">
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+          <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Candidato" FunctionName="WorknetModel.Store.SP_Consultar_Candidato">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Candidato_Result">
+          <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+          <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+          <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+          <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Categorias" FunctionName="WorknetModel.Store.SP_Consultar_Categorias">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Categorias_Result">
+          <ScalarProperty Name="id_Categoria" ColumnName="id_Categoria" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Empleo" FunctionName="WorknetModel.Store.SP_Consultar_Empleo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Empleo_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Empleo_Aplicado" FunctionName="WorknetModel.Store.SP_Consultar_Empleo_Aplicado">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Empleo_Aplicado_Result">
+          <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Reclutador" FunctionName="WorknetModel.Store.SP_Consultar_Reclutador">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Reclutador_Result">
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="NOMBRE_RECLUTADOR" ColumnName="NOMBRE_RECLUTADOR" />
+          <ScalarProperty Name="APELLIDO_RECLUTADOR" ColumnName="APELLIDO_RECLUTADOR" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="TELEFONO_RECLUTADOR" ColumnName="TELEFONO_RECLUTADOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Solicitudes" FunctionName="WorknetModel.Store.SP_Consultar_Solicitudes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Solicitudes_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+          <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Solicitudes_por_id" FunctionName="WorknetModel.Store.SP_Consultar_Solicitudes_por_id">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Consultar_Solicitudes_por_id_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+          <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Empleo_Inteligente" FunctionName="WorknetModel.Store.SP_Empleo_Inteligente">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Empleo_Inteligente_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="CATEGORIA_DESCRIPCION" ColumnName="CATEGORIA_DESCRIPCION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Empleos_Publicados" FunctionName="WorknetModel.Store.SP_Empleos_Publicados">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Empleos_Publicados_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Filtrar_Categorias" FunctionName="WorknetModel.Store.SP_Filtrar_Categorias">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Filtrar_Categorias_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Bitacora" FunctionName="WorknetModel.Store.SP_Insertar_Bitacora" />
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Candidato" FunctionName="WorknetModel.Store.SP_Insertar_Candidato" />
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Empleo" FunctionName="WorknetModel.Store.SP_Insertar_Empleo" />
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Reclutador" FunctionName="WorknetModel.Store.SP_Insertar_Reclutador" />
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Solicitudes" FunctionName="WorknetModel.Store.SP_Insertar_Solicitudes" />
+    <FunctionImportMapping FunctionImportName="SP_Insertar_Usuario" FunctionName="WorknetModel.Store.SP_Insertar_Usuario" />
+    <FunctionImportMapping FunctionImportName="SP_Llenar_Candidatos" FunctionName="WorknetModel.Store.SP_Llenar_Candidatos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Llenar_Candidatos_Result">
+          <ScalarProperty Name="NOMBRE_CANDIDATO" ColumnName="NOMBRE_CANDIDATO" />
+          <ScalarProperty Name="APELLIDO_CANDIDATO" ColumnName="APELLIDO_CANDIDATO" />
+          <ScalarProperty Name="EXP_CANDIDATO" ColumnName="EXP_CANDIDATO" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="TELEFONO_CANDIDATO" ColumnName="TELEFONO_CANDIDATO" />
+          <ScalarProperty Name="AREA_INTERES" ColumnName="AREA_INTERES" />
+          <ScalarProperty Name="CORREO_USUARIO" ColumnName="CORREO_USUARIO" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Llenar_Empleos" FunctionName="WorknetModel.Store.SP_Llenar_Empleos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Llenar_Empleos_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Ver_Solicitudes" FunctionName="WorknetModel.Store.SP_Ver_Solicitudes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WorknetModel.SP_Ver_Solicitudes_Result">
+          <ScalarProperty Name="ID_EMPLEO" ColumnName="ID_EMPLEO" />
+          <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+          <ScalarProperty Name="EXP_MINIMA" ColumnName="EXP_MINIMA" />
+          <ScalarProperty Name="GRADO_ESTUDIO" ColumnName="GRADO_ESTUDIO" />
+          <ScalarProperty Name="COMPANIA" ColumnName="COMPANIA" />
+          <ScalarProperty Name="EMPLEO_NOMBRE" ColumnName="EMPLEO_NOMBRE" />
+          <ScalarProperty Name="ESTADO_PUESTO" ColumnName="ESTADO_PUESTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="REQUISITOS" ColumnName="REQUISITOS" />
+          <ScalarProperty Name="CORREO_RECLUTADOR" ColumnName="CORREO_RECLUTADOR" />
+          <ScalarProperty Name="categoria_descripcion" ColumnName="categoria_descripcion" />
+          <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="CORREO_CANDIDATO" ColumnName="CORREO_CANDIDATO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

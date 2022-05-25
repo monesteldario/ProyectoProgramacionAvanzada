@@ -1,0 +1,15 @@
+﻿
+.container {
+    width: 100%;
+    display: flex;
+    max-width: 1100px;
+}
+
+.card {
+    width: 100%;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+}
