@@ -1,0 +1,109 @@
+﻿@model GentelellaTemplate.Entities.UsuarioReclutadorOBJ
+@*@model GentelellaTemplate.Entities.UsuariosOBJ*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WorkNet | Registro Reclutador </title>
+
+    <!-- Bootstrap -->
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Vendors/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
+</head>
+
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <h1>Registro Reclutador</h1>
+                    @using (Html.BeginForm("RegistrarReclutador", "Usuarios", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label>Nombre:</label>
+                            @Html.TextBoxFor(m => m.nombre_reclutador, new { @class = "form-control", @required = "required", @type = "text" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Apellido:</label>
+                            @Html.TextBoxFor(m => m.apellido_reclutador, new { @class = "form-control", @required = "required", @type = "text" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Compañia:</label>
+                            @Html.TextBoxFor(m => m.compania, new { @class = "form-control", @required = "required", @type = "text" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Teléfono:</label>
+                            @Html.TextBoxFor(m => m.telefono_reclutador, new
+                       {
+                           @class = "form-control",
+                           maxlength = "15",
+                           @type="number",
+                           @required = "required",
+                           onkeypress = "return isNumber(event)"
+                       })
+
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label>Correo:</label>
+                            @Html.TextBoxFor(m => m.correo_reclutador, new { @class = "form-control", @required = "required", @type = "email" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Contraseña:</label>
+                            @Html.TextBoxFor(m => m.contrasena, new { @class = "form-control", @required = "required", @type = "password" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Confirmar Contraseña:</label>
+                            @Html.TextBoxFor(m => m.confirmar_contrasena, new { @class = "form-control", @required = "required", @type = "password" })
+
+                        </div>
+
+                        <div class="form-group row">
+                            <input type="submit" class="btn btn-success submit" value="Registrarme"
+                                   style="width: 370px; margin: 0; position: relative; font-size: 18px;" />
+                        </div>
+                    }
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">
+                            ¿Ya es miembro?
+                            <a href="@Url.Action("InicioSesion","Usuarios")" class="to_register"> Inicie Sesión </a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <br />
+                        <div>
+                            <h1><i class="fa fa-briefcase"></i> WorkNet</h1>
+                            <p>©2022 Todos los derechos resevados.</p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts{
+    <script src="~/Vendors/Funciones/General.js"></script>
+}

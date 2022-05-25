@@ -1,0 +1,153 @@
+﻿@model GentelellaTemplate.Entities.EmpleosOBJ
+@{
+    ViewBag.Title = "VerEmpleo";
+}
+
+<h2>Conocer más del Empleo</h2>
+
+@using (Html.BeginForm("InsertarSolicitud", "Solicitudes", FormMethod.Post))
+{ 
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><small>Conozca mayor información del empleo</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                                Código del Empleo <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.id_empleo, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                                Nombre de Empleo <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.empleo_nombre, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Descripción del puesto <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.descripcion, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Requisitos <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.requisitos, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Compañía <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.compania, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Grado de estudio requerido <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.grado_estudio, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Categoría <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.categoria_descripcion, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Estado <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.estado_puesto, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                @*<button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("BusquedaEmpleos", "Empleos")">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></button>*@
+                                <a href="@Url.Action("BusquedaEmpleos","Empleos")" class="btn btn-danger" type="button">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                @if (Session["Aplicado"] as string == "1")
+                                {
+                                    <button type="submit" class="btn btn-dark" disabled="disabled">Ya Aplicó <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-success">Aplicar <i class="fa fa-share-square" aria-hidden="true"></i></button>
+
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

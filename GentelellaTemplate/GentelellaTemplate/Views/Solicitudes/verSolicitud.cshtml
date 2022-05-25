@@ -1,0 +1,127 @@
+﻿@model GentelellaTemplate.Entities.ConsultaSolicitudesOBJ
+@{
+    ViewBag.Title = "verSolicitud";
+}
+
+<h2>Datos de la Solicitud</h2>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left">
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            Código del Empleo <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.TextBoxFor(Model => Model.ID_EMPLEO, new
+                       {
+                           @class = "form-control",
+                           @required = "required",
+                           @readonly = "readonly"
+                       })
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            Nombre de Empleo <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.TextBoxFor(Model => Model.EMPLEO_NOMBRE, new
+                       {
+                           @class = "form-control",
+                           @required = "required",
+                           @readonly = "readonly"
+                       })
+                        </div>
+                    </div>
+                    <div class="item form-group has-feedback">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            Correo del Candidato <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.TextBoxFor(Model => Model.CORREO_CANDIDATO, new
+                       {
+                           @class = "form-control",
+                           @required = "required",
+                           @readonly = "readonly"
+                       })
+                        </div>
+                    </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Compania <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.COMPANIA, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Descripcion del Puesto <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.DESCRIPCION, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Requisitos del Puesto <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.REQUISITOS, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Estado del Puesto <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.ESTADO_PUESTO, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                <a href="@Url.Action("Solicitudes", "Solicitudes")" class="btn btn-primary" type="button">Volver Atrás <i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

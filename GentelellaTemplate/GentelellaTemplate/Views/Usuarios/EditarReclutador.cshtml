@@ -1,0 +1,102 @@
+﻿@model  GentelellaTemplate.Entities.ReclutadoresOBJ
+@{
+    ViewBag.Title = "EditarReclutador";
+}
+
+@using (Html.BeginForm("ReclutadorEditado", "Usuarios", FormMethod.Post))
+{
+
+    <h2>Editar Perfil</h2>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><small>¡Edite su perfil!</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left">
+                        <div class="item form-group">
+                            <label for="CorreoTXT" class="col-form-label col-md-3 col-sm-3 label-align">Correo</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.correo_reclutador, new
+                   {
+                       @class = "form-control",
+                       @required = "required",
+                       @readonly = "readonly"
+                   });
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="NombreTXT">
+                                Nombre <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.nombre_reclutador, new
+        {
+            @class = "form-control",
+            @required = "required"
+        });
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="ApellidosTXT">
+                                Apellidos <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.apellido_reclutador, new
+         {
+             @class = "form-control",
+             @required = "required"
+         });
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="CompaniaTXT" class="col-form-label col-md-3 col-sm-3 label-align">Compañía</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.compania, new
+         {
+             @class = "form-control",
+             @required = "required"
+         });
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="telefonoTXT" class="col-form-label col-md-3 col-sm-3 label-align">Telefono</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.telefono_reclutador, new
+                           {
+                               @class = "form-control",
+                               maxlength = "15",
+                               @required = "required",
+                               onkeypress = "return isNumber(event)"
+                           });
+
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                <button type="submit" class="btn btn-warning">Modificar <i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-primary" type="button">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,137 @@
+﻿@model GentelellaTemplate.Entities.EmpleosOBJ
+@{
+    ViewBag.Title = "EditarEmpleo";
+}
+
+<h2>Actualizar Empleo</h2>
+<br />
+
+@using (Html.BeginForm("EditarEmpleo", "Empleos", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><small>Actualizar Informacion del Empleo</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                                Código del Empleo <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.id_empleo, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @readonly = "readonly"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                                Nombre de Empleo <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.empleo_nombre, new
+                           {
+                               @class = "form-control",
+                               @required = "required"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Descripción del puesto <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.descripcion, new
+                           {
+                               @class = "form-control",
+                               @required = "required"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Requisitos <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextAreaFor(Model => Model.requisitos, new
+                           {
+                               @class = "form-control",
+                               @required = "required"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group has-feedback">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                Compañía <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.compania, new
+                           {
+                               @class = "form-control",
+                               @required = "required"
+                           })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Categoría</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.DropDownListFor(Model => Model.id_categoria, ViewBag.categorias as List<SelectListItem>,
+                                        new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Experiencia Mínima</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.exp_minima, new
+                                {
+                                    @class = "form-control",
+                                    maxlength = "2",
+                                    @required = "required",
+                                    onkeypress = "return isNumber(event)"
+                                })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Grado de Estudio</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.DropDownListFor(Model => Model.grado_estudio, ViewBag.estudios as List<SelectListItem>,
+                                        new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Estado</label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.DropDownListFor(Model => Model.estado_puesto, ViewBag.estado as List<SelectListItem>,
+                                        new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                @*<button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("BusquedaEmpleos", "Empleos")">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></button>*@
+                                <a href="@Url.Action("EmpleosPublicados","Empleos")" class="btn btn-danger" type="button">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                <button type="submit" class="btn btn-success" id="btnActualizarDatos">Actualizar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

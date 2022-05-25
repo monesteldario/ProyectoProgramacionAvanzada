@@ -1,0 +1,60 @@
+﻿@model IEnumerable<GentelellaTemplate.Entities.CandidatosOBJ>
+
+@{
+    ViewBag.Title = "Candidatos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scriptsProyecto{
+
+    @* ESTOS SCRIPTS SON PARA EL DATATABLE, EL JS ES PARA QUE APAREZCA EN ESPAÑOL *@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#ListaCandidatos').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                }
+            });
+        });
+
+    </script>
+}
+
+<h2>Candidatos</h2>
+
+
+<table id="ListaCandidatos" class="display" style="text-align:center">
+    <thead>
+        <tr>
+            <th>Correo</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Telefono</th>
+            <th>Categoría</th>
+            <th>Experiencia</th>
+            <th>Estudios</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.correo_candidato  </td>
+            <td>@item.nombre_candidato</td>
+            <td>@item.apellido_candidato</td>
+            <td>@item.telefono_candidato</td>
+            <td>@item.categoria_descripcion</td>
+            <td>@item.experiencia</td>
+            <td>@item.grado_estudio</td>
+
+        </tr>
+        }
+    </tbody>
+
+</table>

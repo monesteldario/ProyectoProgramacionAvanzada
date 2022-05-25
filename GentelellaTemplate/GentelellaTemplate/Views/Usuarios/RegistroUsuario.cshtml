@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WorkNet | Crear Cuenta </title>
+
+    <!-- Bootstrap -->
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Vendors/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
+</head>
+
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form action="@Url.Action("RegistroUsuario","InicioSesion")" method="post">
+                        <h1>Crear Cuenta</h1>
+                        <div>
+                            <input type="text" name="Correo" class="form-control" value="" placeholder="Correo" required="" />
+                        </div>
+                        <div>
+                            <input type="password" name="Clave" class="form-control" value=""  placeholder="Contraseña" required="" />
+                        </div>
+                        <div>
+                            <input type="password" name="Confirmarclave" class="form-control" value="" placeholder="Confirmar Contraseña" required="" />
+                        </div>
+
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+
+                        <div>
+                            @*<a class="btn btn-success submit" href="@Url.Action("Index","Home")">Registrarme</a>*@
+                            <button type="submit" name="button" class="btn btn-success">Registrarme</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">
+                                ¿Ya es miembro?
+                                <a href="@Url.Action("InicioSesion","InicioSesion")" class="to_register"> Inicie Sesión </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-briefcase"></i> WorkNet</h1>
+                                <p>©2022 Todos los derechos resevados.</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

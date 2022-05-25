@@ -1,0 +1,111 @@
+﻿@model GentelellaTemplate.Entities.UsuariosOBJ
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WorkNet | Inicio de Sesión </title>
+
+    <!-- Bootstrap -->
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Vendors/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
+</head>
+
+<body class="login">
+
+
+
+    @try
+    {
+        if (Session["Mensaje"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @Session["Mensaje"]
+            </div>
+            Session["Mensaje"] = null;
+        }
+    }
+    catch
+    {
+
+    }
+    <div>
+        @*<a class="hiddenanchor" id="signup"></a>
+            <a class="hiddenanchor" id="signin"></a>*@
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+
+                <section class="login_content">
+                    <h1>Inicio de Sesión</h1>
+                    @using (Html.BeginForm("Login", "Usuarios", FormMethod.Post))
+                    {
+
+                        <div>
+                            @Html.TextBoxFor(m => m.correo, new
+                            {
+                                @class = "form-control input_user",
+                                @placeholder = "Correo Electrónico",
+                           @required = "required",
+                                @type = "email",
+                                style = "font-size: 18px"
+                            })
+
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(m => m.contrasena, new { @class = "form-control", @placeholder = "Contraseña", @required = "required", @type = "password", style = "font-size: 18px" })
+
+                        </div>
+
+
+                        <div>
+                            <input type="submit" class="btn btn-success" value="Iniciar Sesión"
+                                   style="width: 350px; margin: 0; position: relative; font-size: 18px;" />
+
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <h2>
+                            ¿Primera vez en nuestra plataforma?
+                        </h2>
+                        <p class="change_link">
+                            ¿Eres candidato?
+                            <a href="@Url.Action("RegistroCandidato","Usuarios")"> Registrese Aquí </a>
+                        </p>
+                        <p class="change_link">
+                            ¿Eres reclutador?
+                            <a href="@Url.Action("RegistroReclutador","Usuarios")"> Registrese Aquí </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <h1><i class="fa fa-briefcase"></i> WorkNet</h1>
+                            <p>©2022 Todos los derechos resevados.</p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+</html>
+

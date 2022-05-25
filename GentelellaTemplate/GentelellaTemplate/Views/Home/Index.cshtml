@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   @*<link href="~/Content/Alela/css/estilos.css" rel="stylesheet" />*@
+
+</head>
+<body>
+    <header id="mainheader">
+        <div class="container">
+            <div class="mainheader-row">
+                <div class="mainheader-row-text">
+                    <br />
+                    <br />
+                    <h1 class="display-5">Con nosotros encontrarás tu<br></h1>
+                    <h1 class="display-5" style="font-weight: bold; color: #3498DB "> Trabajo Soñado</h1>
+                    <h5>¡Explorá todas las diferentes opciones laborales para vos!</h5>
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+    <div class="contenedor">
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/mac.jpg" />
+            </figure>
+            <div class="contenido">
+                <h3>McDonald´s</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    servicio al cliente de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/amazon.jpg" />
+            </figure>
+            <div class="contenido">
+                <h3>Amazon</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    servicio al cliente de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/unilever.jpg" />
+            </figure>
+            <div class="contenido">
+                <h3>Unilever</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    servicio al cliente de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>        
+    </div>
+    <div class="contenedor">
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/IBM.jpg" />
+            </figure>
+            <div class="contenido">
+                <h3>IBM</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    informática de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/intel.jpg" />
+            </figure>
+            <div class="contenido">
+                <h3>Intel</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    informática de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>
+        <div class="cards">
+            <figure>
+                <img src="~/Content/Alela/images/sykes.png" />
+            </figure>
+            <div class="contenido">
+                <h3>Sykes</h3>
+                <p>
+                    ¡Encontrá diferentes ofertas de empleo en
+                    servicio al cliente de las empresas más grandes!
+                </p>
+                <a href="@Url.Action("BusquedaEmpleos","Empleos")">Conocer más</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

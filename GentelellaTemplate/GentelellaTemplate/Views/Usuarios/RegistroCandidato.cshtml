@@ -1,0 +1,124 @@
+﻿@model GentelellaTemplate.Entities.UsuarioCandidatoOBJ
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WorkNet | Crear Cuenta </title>
+
+    <!-- Bootstrap -->
+    <link href="~/Vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Vendors/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/Alela/css/custom.min.css" rel="stylesheet" />
+</head>
+
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div>
+
+                <section class="login_content">
+                    <h1>Registro Candidato</h1>
+                    @using (Html.BeginForm("RegistrarCandidato", "Usuarios", FormMethod.Post))
+                    {
+
+                        <div class="form-group row">
+                            <label>Nombre:</label>
+                            @Html.TextBoxFor(m => m.nombre_candidato, new { @class = "form-control", @required = "required", @type = "text" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Apellido:</label>
+                            @Html.TextBoxFor(m => m.apellido_candidato, new { @class = "form-control", @required = "required", @type = "text" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Años de Experiencia:</label>
+                            @Html.TextBoxFor(m => m.experiencia, new { @class = "form-control", @required = "required", @type = "number" })
+
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <label>Grado de Estudio:</label>
+                            @Html.DropDownListFor(m => m.grado_estudio, ViewBag.estudios as List<SelectListItem>,
+                                        new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Teléfono:</label>
+                            @Html.TextBoxFor(m => m.telefono_candidato, new { @class = "form-control", @required = "required", @type = "number" })
+
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 ">Área de Interés</label>
+                            <div class="col-md-9 col-sm-9 ">
+
+                                @Html.DropDownListFor(m => m.area_interes, ViewBag.comboCategorias as List<SelectListItem>,
+                                new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label>Correo Electrónico:</label>
+                            @Html.TextBoxFor(m => m.correo_candidato, new { @class = "form-control", @required = "required", @type = "email" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Contraseña:</label>
+                            @Html.TextBoxFor(m => m.contrasena, new { @class = "form-control", @required = "required", @type = "password" })
+
+                        </div>
+                        <div class="form-group row">
+                            <label>Confirmar Contraseña:</label>
+                            @Html.TextBoxFor(m => m.confirmar_contrasena, new { @class = "form-control", @required = "required", @type = "password" })
+
+                        </div>
+
+
+
+                        <div>
+
+                            <input type="submit" class="btn btn-success submit" value="Registrarme"
+                                   style="width: 350px; margin: 0; position: relative; font-size: 18px;" />
+                        </div>
+                    }
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">
+                            ¿Ya es miembro?
+                            <a href="@Url.Action("InicioSesion","Usuarios")" class="to_register"> Inicie Sesión </a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <h1><i class="fa fa-briefcase"></i> WorkNet</h1>
+                            <p>©2022 Todos los derechos resevados.</p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

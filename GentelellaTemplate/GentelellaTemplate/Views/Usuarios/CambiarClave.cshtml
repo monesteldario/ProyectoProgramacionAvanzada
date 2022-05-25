@@ -1,0 +1,89 @@
+﻿@model  GentelellaTemplate.Entities.UsuariosClaveOBJ
+@{
+    ViewBag.Title = "CambiarClave";
+}
+
+
+@using (Html.BeginForm("ConfirmarCambioClave", "Usuarios", FormMethod.Post))
+{
+
+    <h2>Cambio de Contraseña</h2>
+    <br />
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><small>Cambio de Contraseña</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left">
+                        <div class="item form-group">
+                            <label for="CorreoTXT" class="col-form-label col-md-3 col-sm-3 label-align">Correo</label>
+
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.correo, new
+                   {
+
+                       @class = "form-control",
+                       @required = "required",
+                       @readonly = "readonly"
+                   })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="Contrasena1">
+                                Contraseña Actual <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.contrasena1, new
+                           {
+
+                               @class = "form-control",
+                               @required = "required",
+                               @type = "password"
+                           })
+
+                            </div>
+
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="Contrasena2">
+                                Nueva Contraseña <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                                @Html.TextBoxFor(Model => Model.contrasena2, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @type = "password"
+                           })
+                            </div>
+                        </div>
+
+
+                        <div class="ln_solid"></div>
+                        <div class="item form-group">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                <a href="@Url.Action("Index", "Home")" class="btn btn-primary" type="button">Cancelar <i class="fa fa-times-circle" aria-hidden="true"></i></a>
+
+                                <button type="submit" class="btn btn-warning" id="btnCambiarClave">
+                                    Cambiar Contraseña <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

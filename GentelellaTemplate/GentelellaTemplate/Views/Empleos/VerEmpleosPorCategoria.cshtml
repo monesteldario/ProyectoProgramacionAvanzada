@@ -1,0 +1,25 @@
+﻿@model IEnumerable<GentelellaTemplate.Entities.VerCategoriasOBJ>
+@{
+    ViewBag.Title = "VerEmpleosPorCategoria";
+}
+
+<h2>Ver Empleos por Categoria</h2>
+<br />
+<div id="content" runat="server" class="content" style="height:70%; min-height:180px">
+    <div>
+        <asp:Panel id="ButtonPanel" runat="server" style="margin-right:50px;">
+            <div class="row buttons">
+                @foreach (var item in Model)
+                {
+                    <div class="col-4">
+                        <input type="button" value="@item.CAT_DESCRIPCION" class="btn btn-info" style="height:100px;width:230px"
+                               onclick="location.href='@Url.Action("VerEmpleosFiltrados", "Empleos", new { q = item.ID_CATEGORIA })'">
+                        <br />
+                        <br />
+                    </div>
+                }
+            </div>
+        </asp:Panel>
+    </div>
+
+</div>
