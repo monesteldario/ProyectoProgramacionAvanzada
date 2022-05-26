@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4c2ac4626dec4d7681aa7e32e3f5e235" Name="Diagram1">
+        <EntityTypeShape EntityType="WorknetModel.BITACORA" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.CANDIDATOS" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.CATEGORIAS" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.EMPLEOS" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.RECLUTADORES" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.ROLES" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.SOLICITUDES" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WorknetModel.USUARIOS" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="WorknetModel.FK_BITACORA_USUARIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.FK_CANDIDATOS_CATEGORIAS" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.FK_SOLICITUDES_CANDIDATOS" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.R_8" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.FK_EMPLEOS_CATEGORIAS" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.FK_EMPLEOS_RECLUTADORES" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.R_6" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.FK_RECLUTADORES_USUARIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="WorknetModel.R_4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
