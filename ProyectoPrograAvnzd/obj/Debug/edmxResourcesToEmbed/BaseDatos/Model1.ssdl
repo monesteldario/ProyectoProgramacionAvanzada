@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WorknetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BITACORA">
+    <Key>
+      <PropertyRef Name="CONSECUTIVO" />
+    </Key>
+    <Property Name="FECHA_HORA" Type="datetime" Nullable="false" />
+    <Property Name="DESCRIPCION_ERROR" Type="varchar" MaxLength="2500" Nullable="false" />
+    <Property Name="CODIGO_ERROR" Type="bigint" Nullable="false" />
+    <Property Name="ORIGEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CONSECUTIVO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CANDIDATOS">
+    <Key>
+      <PropertyRef Name="CORREO_USUARIO" />
+    </Key>
+    <Property Name="NOMBRE_CANDIDATO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="APELLIDO_CANDIDATO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EXP_CANDIDATO" Type="int" Nullable="false" />
+    <Property Name="GRADO_ESTUDIO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TELEFONO_CANDIDATO" Type="int" Nullable="false" />
+    <Property Name="AREA_INTERES" Type="bigint" Nullable="false" />
+    <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CATEGORIAS">
+    <Key>
+      <PropertyRef Name="ID_CATEGORIA" />
+    </Key>
+    <Property Name="ID_CATEGORIA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORIA_DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EMPLEOS">
+    <Key>
+      <PropertyRef Name="ID_EMPLEO" />
+    </Key>
+    <Property Name="ID_EMPLEO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CATEGORIA" Type="bigint" Nullable="false" />
+    <Property Name="EXP_MINIMA" Type="int" Nullable="false" />
+    <Property Name="GRADO_ESTUDIO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="COMPANIA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMPLEO_NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ESTADO_PUESTO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="REQUISITOS" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CORREO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RECLUTADORES">
+    <Key>
+      <PropertyRef Name="CORREO_RECLUTADOR" />
+    </Key>
+    <Property Name="CORREO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NOMBRE_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="APELLIDO_RECLUTADOR" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="COMPANIA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TELEFONO_RECLUTADOR" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID_ROL" />
+    </Key>
+    <Property Name="ID_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SOLICITUDES">
+    <Key>
+      <PropertyRef Name="ID_SOLICITUD" />
+    </Key>
+    <Property Name="ID_SOLICITUD" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_EMPLEO" Type="bigint" Nullable="false" />
+    <Property Name="CORREO_CANDIDATO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FECHA_SOLICITUD" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USUARIOS">
+    <Key>
+      <PropertyRef Name="CORREO_USUARIO" />
+    </Key>
+    <Property Name="CORREO_USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CONTRASENA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_ROL" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BITACORA_USUARIOS">
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+    <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Principal>
+      <Dependent Role="BITACORA">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CANDIDATOS_CATEGORIAS">
+    <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+    <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORIAS">
+        <PropertyRef Name="ID_CATEGORIA" />
+      </Principal>
+      <Dependent Role="CANDIDATOS">
+        <PropertyRef Name="AREA_INTERES" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLEOS_CATEGORIAS">
+    <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="1" />
+    <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORIAS">
+        <PropertyRef Name="ID_CATEGORIA" />
+      </Principal>
+      <Dependent Role="EMPLEOS">
+        <PropertyRef Name="ID_CATEGORIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EMPLEOS_RECLUTADORES">
+    <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="1" />
+    <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RECLUTADORES">
+        <PropertyRef Name="CORREO_RECLUTADOR" />
+      </Principal>
+      <Dependent Role="EMPLEOS">
+        <PropertyRef Name="CORREO_RECLUTADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RECLUTADORES_USUARIOS">
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+    <End Role="RECLUTADORES" Type="Self.RECLUTADORES" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Principal>
+      <Dependent Role="RECLUTADORES">
+        <PropertyRef Name="CORREO_RECLUTADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITUDES_CANDIDATOS">
+    <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="1" />
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CANDIDATOS">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Principal>
+      <Dependent Role="SOLICITUDES">
+        <PropertyRef Name="CORREO_CANDIDATO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_4">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID_ROL" />
+      </Principal>
+      <Dependent Role="USUARIOS">
+        <PropertyRef Name="ID_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_6">
+    <End Role="EMPLEOS" Type="Self.EMPLEOS" Multiplicity="1" />
+    <End Role="SOLICITUDES" Type="Self.SOLICITUDES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLEOS">
+        <PropertyRef Name="ID_EMPLEO" />
+      </Principal>
+      <Dependent Role="SOLICITUDES">
+        <PropertyRef Name="ID_EMPLEO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_8">
+    <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+    <End Role="CANDIDATOS" Type="Self.CANDIDATOS" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIOS">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Principal>
+      <Dependent Role="CANDIDATOS">
+        <PropertyRef Name="CORREO_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_Actualizar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pNombre" Type="varchar" Mode="In" />
+    <Parameter Name="pApellido" Type="varchar" Mode="In" />
+    <Parameter Name="pExp" Type="int" Mode="In" />
+    <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+    <Parameter Name="pTelefono" Type="int" Mode="In" />
+    <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Actualizar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pEmpleo" Type="varchar" Mode="In" />
+    <Parameter Name="pCompania" Type="varchar" Mode="In" />
+    <Parameter Name="pRequisitos" Type="varchar" Mode="In" />
+    <Parameter Name="pDescripcion" Type="varchar" Mode="In" />
+    <Parameter Name="pExperiencia" Type="int" Mode="In" />
+    <Parameter Name="pEstudios" Type="varchar" Mode="In" />
+    <Parameter Name="pEstado" Type="varchar" Mode="In" />
+    <Parameter Name="pCategoria" Type="int" Mode="In" />
+    <Parameter Name="pIdPuesto" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Actualizar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pNombre" Type="varchar" Mode="In" />
+    <Parameter Name="pApellido" Type="varchar" Mode="In" />
+    <Parameter Name="pCompania" Type="varchar" Mode="In" />
+    <Parameter Name="pTelefono" Type="int" Mode="In" />
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Buscar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+    <Parameter Name="pContrasena" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Consultar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Consultar_Categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_Consultar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pIdEmpleo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Consultar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Consultar_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Empleo_Inteligente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+    <Parameter Name="pExp" Type="int" Mode="In" />
+    <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Empleos_Publicados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Filtrar_Categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCategoria" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Insertar_Candidato" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+    <Parameter Name="pNombre" Type="varchar" Mode="In" />
+    <Parameter Name="pApellido" Type="varchar" Mode="In" />
+    <Parameter Name="pExp" Type="int" Mode="In" />
+    <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+    <Parameter Name="pTelefono" Type="int" Mode="In" />
+    <Parameter Name="pAreaInteres" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Insertar_Empleo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pNombreEmpleo" Type="varchar" Mode="In" />
+    <Parameter Name="pRequisitos" Type="varchar" Mode="In" />
+    <Parameter Name="pDescripcionGeneral" Type="varchar" Mode="In" />
+    <Parameter Name="pCompania" Type="varchar" Mode="In" />
+    <Parameter Name="pIdCategoria" Type="int" Mode="In" />
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+    <Parameter Name="pEstado" Type="varchar" Mode="In" />
+    <Parameter Name="pExperienciaMinima" Type="int" Mode="In" />
+    <Parameter Name="pGradoEstudio" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Insertar_Reclutador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+    <Parameter Name="pNombre" Type="varchar" Mode="In" />
+    <Parameter Name="pApellido" Type="varchar" Mode="In" />
+    <Parameter Name="pCompania" Type="varchar" Mode="In" />
+    <Parameter Name="pTelefono" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Insertar_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreoCandidato" Type="varchar" Mode="In" />
+    <Parameter Name="pIdEmpleo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Insertar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pCorreo" Type="varchar" Mode="In" />
+    <Parameter Name="pPassword" Type="varchar" Mode="In" />
+    <Parameter Name="pIdRol" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Llenar_Candidatos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_Llenar_Empleos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_Ver_Solicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="WorknetModelStoreContainer">
+    <EntitySet Name="BITACORA" EntityType="Self.BITACORA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CANDIDATOS" EntityType="Self.CANDIDATOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CATEGORIAS" EntityType="Self.CATEGORIAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLEOS" EntityType="Self.EMPLEOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RECLUTADORES" EntityType="Self.RECLUTADORES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOLICITUDES" EntityType="Self.SOLICITUDES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BITACORA_USUARIOS" Association="Self.FK_BITACORA_USUARIOS">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="BITACORA" EntitySet="BITACORA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CANDIDATOS_CATEGORIAS" Association="Self.FK_CANDIDATOS_CATEGORIAS">
+      <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+      <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLEOS_CATEGORIAS" Association="Self.FK_EMPLEOS_CATEGORIAS">
+      <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+      <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EMPLEOS_RECLUTADORES" Association="Self.FK_EMPLEOS_RECLUTADORES">
+      <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+      <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RECLUTADORES_USUARIOS" Association="Self.FK_RECLUTADORES_USUARIOS">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="RECLUTADORES" EntitySet="RECLUTADORES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITUDES_CANDIDATOS" Association="Self.FK_SOLICITUDES_CANDIDATOS">
+      <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+    </AssociationSet>
+    <AssociationSet Name="R_4" Association="Self.R_4">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_6" Association="Self.R_6">
+      <End Role="EMPLEOS" EntitySet="EMPLEOS" />
+      <End Role="SOLICITUDES" EntitySet="SOLICITUDES" />
+    </AssociationSet>
+    <AssociationSet Name="R_8" Association="Self.R_8">
+      <End Role="USUARIOS" EntitySet="USUARIOS" />
+      <End Role="CANDIDATOS" EntitySet="CANDIDATOS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
